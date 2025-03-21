@@ -681,27 +681,7 @@ elif st.session_state.page == "create_form":
     # Form-based approach for more control over the button
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     
-    # Override form submit button styles
-    st.markdown("""
-    <style>
-    /* Target form submit button */
-    .stButton > button[kind="formSubmit"] {
-        background-color: white !important;
-        color: black !important;
-        border: 2px solid black !important;
-        border-radius: 30px !important;
-        font-weight: bold !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-    
-    # Use a form to have more control over the button styling
-    with st.form("story_form"):
-        # Add a hidden field to make the form valid
-        st.text_input("", value="", label_visibility="collapsed", key="hidden_input")
-        
-        # Create the submit button
-        generate_story_btn = st.form_submit_button("✨ Generate Story", use_container_width=True)
+  
     
     st.markdown("</div>", unsafe_allow_html=True)
     
