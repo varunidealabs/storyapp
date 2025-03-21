@@ -1,4 +1,52 @@
-import streamlit as st
+# Additional global CSS to fix contrast issues
+st.markdown("""
+<style>
+    /* Fix color contrast on black elements */
+    .css-1offfwp, .css-12oz5g7 {
+        color: white !important;
+    }
+    
+    /* Ensure buttons with dark backgrounds have white text */
+    button, .css-1q8dd3e {
+        color: white !important;
+    }
+    
+    /* But buttons with white backgrounds should have black text */
+    button.css-1q8dd3e.white-bg, .secondary-button {
+        color: black !important;
+    }
+    
+    /* Force color contrast for any black or dark elements */
+    .css-1q8dd3e, .css-1offfwp, .css-12oz5g7 {
+        --text-color: white !important;
+    }
+    
+    /* Fix for dark modals or overlays */
+    .dark-bg *, [style*="background-color: #000"] *, [style*="background-color: rgb(0, 0, 0)"] * {
+        color: white !important;
+    }
+    
+    /* Override Streamlit's default button styling */
+    .stButton > button {
+        color: white !important;
+        border: 2px solid black !important;
+    }
+    
+    /* Fix for white buttons specifically */
+    .stButton > button.white-btn, .stButton > button:nth-of-type(2) {
+        background-color: white !important;
+        color: black !important;
+    }
+</style>
+""", unsafe_allow_html=True)    # Feature Icons - Using Streamlit columns
+    st.markdown("<br>", unsafe_allow_html=True)
+    icon_col1, icon_col2, icon_col3 = st.columns(3)
+    with icon_col1:
+        st.markdown("<div style='text-align: center; font-size: 32px; color: black;'>📚</div>", unsafe_allow_html=True)
+    with icon_col2:
+        st.markdown("<div style='text-align: center; font-size: 32px; color: black;'>🖼️</div>", unsafe_allow_html=True)
+    with icon_col3:
+        st.markdown("<div style='text-align: center; font-size: 32px; color: black;'>🎙️</div>", unsafe_allow_html=True)import streamlit as st
 import os
 from src.story_generator import StoryGenerator
 from src.image_generator import ImageGenerator
@@ -42,8 +90,34 @@ st.markdown("""
         color: black !important;
     }
     
-    /* Make sure all input fields have black text */
+    /* Make sure all input fields have proper contrast */
     .stTextInput > div > div > input, .stTextArea > div > div > textarea, .stSelectbox > div > div > div {
+        color: black !important;
+        background-color: white !important;
+    }
+    
+    /* Make sure any black background elements have white text */
+    [style*="background-color: black"], [style*="background-color:#000000"], [style*="background-color: #000"] {
+        color: white !important;
+    }
+    
+    /* Force white text on black backgrounds for all elements */
+    .black-bg, .black-button, div[style*="background-color: black"], .stButton > button[style*="background-color: black"] {
+        color: white !important;
+    }
+    
+    /* Ensure radio buttons and checkboxes are visible */
+    .stRadio label, .stCheckbox label {
+        color: black !important;
+    }
+    
+    /* Force readable text on any button */
+    button, .stButton > button {
+        color: white !important;
+    }
+    
+    /* For any button that has a light background */
+    button[style*="background-color: white"], .stButton > button[style*="background-color: white"] {
         color: black !important;
     }
     
@@ -121,7 +195,7 @@ st.markdown("""
     /* Button Styles */
     div.stButton > button {
         background-color: #000000;
-        color: white;
+        color: white !important; /* Force white text on black buttons */
         padding: 12px 24px;
         border-radius: 30px;
         font-weight: 600;
@@ -132,20 +206,20 @@ st.markdown("""
     }
     div.stButton > button:hover {
         background-color: white;
-        color: black;
+        color: black !important; /* Force black text on white hover */
         border: 2px solid black;
     }
     
     /* First button (Create Story) */
     div.stButton > button:nth-of-type(1) {
         background-color: #000000;
-        color: white;
+        color: white !important;
     }
     
     /* Second button (View Sample) */
     div.stButton > button:nth-of-type(2) {
         background-color: white;
-        color: black;
+        color: black !important;
         border: 2px solid black;
     }
     
@@ -417,26 +491,44 @@ if st.session_state.page == "home":
     """, unsafe_allow_html=True)
     
     # Button Container - Using Streamlit columns for layout instead of HTML
+    st.markdown("""
+    <style>
+    /* Special style for the main buttons */
+    .main-button-black {
+        background-color: black;
+        color: white !important;
+        padding: 15px 30px;
+        border-radius: 30px;
+        font-weight: bold;
+        text-align: center;
+        margin: 10px 0;
+        font-size: 18px;
+        cursor: pointer;
+        border: 2px solid black;
+    }
+    .main-button-white {
+        background-color: white;
+        color: black !important;
+        padding: 15px 30px;
+        border-radius: 30px;
+        font-weight: bold;
+        text-align: center;
+        margin: 10px 0;
+        font-size: 18px;
+        cursor: pointer;
+        border: 2px solid black;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        create_story_btn = st.button("Create Your Story →", key="create_story_btn", use_container_width=True)
-        view_sample_btn = st.button("View Sample Story", key="view_sample_btn", use_container_width=True)
-    
-    # Feature Icons - Using Streamlit columns
-    st.markdown("<br>", unsafe_allow_html=True)
-    icon_col1, icon_col2, icon_col3 = st.columns(3)
-    with icon_col1:
-        st.markdown("<div style='text-align: center; font-size: 32px;'>📚</div>", unsafe_allow_html=True)
-    with icon_col2:
-        st.markdown("<div style='text-align: center; font-size: 32px;'>🖼️</div>", unsafe_allow_html=True)
-    with icon_col3:
-        st.markdown("<div style='text-align: center; font-size: 32px;'>🎙️</div>", unsafe_allow_html=True)
-    
-    if create_story_btn:
-        go_to_page("create_form")
-    
-    if view_sample_btn:
-        create_sample_story()
+        # Use custom styling to ensure text is visible
+        if st.button("Create Your Story →", key="create_story_btn", use_container_width=True):
+            go_to_page("create_form")
+        
+        if st.button("View Sample Story", key="view_sample_btn", use_container_width=True):
+            create_sample_story()
 
 elif st.session_state.page == "create_form":
     # Story Creation Form with improved styling
@@ -483,6 +575,17 @@ elif st.session_state.page == "create_form":
         .stRadio > div > div > label {
             color: black !important;
             font-weight: 500;
+        }
+        /* Make active radio button text white on black background */
+        .stRadio > div > div > label[data-baseweb="radio"] > div > div:first-child {
+            background-color: black;
+        }
+        .stRadio > div > div > label[data-baseweb="radio"] > div > div:first-child > div {
+            background-color: white;
+        }
+        /* Make sure the radio button itself is visible */
+        .stRadio > div > div > label > div > div {
+            border-color: black !important;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -534,12 +637,24 @@ elif st.session_state.page == "create_form":
     with col2:
         generate_speech = st.checkbox("Generate audio narration", value=True, key="gen_audio_check")
     
-    # Generate Button (centered)
+    # Generate Button (centered) with custom styling
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        generate_story_btn = st.button("✨ Generate Story", use_container_width=True, key="generate_story_btn")
+        # Apply special styling to ensure text is visible
+        st.markdown("""
+        <style>
+        /* Target the specific button */
+        button[kind="primaryFormSubmit"] {
+            background-color: black !important;
+            color: white !important;
+            border: 2px solid black !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        generate_story_btn = st.button("✨ Generate Story", use_container_width=True, key="generate_story_btn", type="primary")
     
     st.markdown("</div>", unsafe_allow_html=True)
     
