@@ -1,4 +1,4 @@
-
+import streamlit as st
 import os
 from src.story_generator import StoryGenerator
 from src.image_generator import ImageGenerator
@@ -17,6 +17,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+
 # Additional global CSS to fix contrast issues
 st.markdown("""
 <style>
@@ -57,15 +58,23 @@ st.markdown("""
         color: black !important;
     }
 </style>
-""", unsafe_allow_html=True)    # Feature Icons - Using Streamlit columns
-    st.markdown("<br>", unsafe_allow_html=True)
-    icon_col1, icon_col2, icon_col3 = st.columns(3)
-    with icon_col1:
-        st.markdown("<div style='text-align: center; font-size: 32px; color: black;'>📚</div>", unsafe_allow_html=True)
-    with icon_col2:
-        st.markdown("<div style='text-align: center; font-size: 32px; color: black;'>🖼️</div>", unsafe_allow_html=True)
-    with icon_col3:
-        st.markdown("<div style='text-align: center; font-size: 32px; color: black;'>🎙️</div>", unsafe_allow_html=True)import streamlit as st
+""", unsafe_allow_html=True)
+
+# Custom CSS for styling
+st.markdown("""
+<style>
+    /* Global Styles */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: white !important;
+        color: black !important;
+    }
+    
+    .stApp {
+        background-color: white !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 # Custom CSS for styling
 st.markdown("""
 <style>
