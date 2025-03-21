@@ -13,7 +13,6 @@ os.makedirs("output_audio", exist_ok=True)
 # Page config with wider layout
 st.set_page_config(
     page_title="StoryBloom AI",
-    page_icon="✨",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -481,7 +480,7 @@ def create_sample_story():
 header_col1, header_col2 = st.columns([1, 2])
 
 with header_col1:
-    st.markdown("<h1 style='font-size: 24px; margin-bottom: 0; color: black; font-weight: bold;text-align: center;'>✨ AI Story Generator </h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 24px; margin-bottom: 0; color: black; font-weight: bold;text-align: center;'> AI Story Generator </h1>", unsafe_allow_html=True)
 
 # Add a separator line
 st.markdown("<hr style='margin-top: 0; border-color: #e0e0e0;'>", unsafe_allow_html=True)
@@ -491,7 +490,7 @@ if st.session_state.page == "home":
     # Hero Section - Simplified version without custom HTML buttons
     st.markdown("""
     <div class="hero-container">
-        <div class="hero-badge" style="color: black; text-align: center; font-weight: 500;">✨AI Story generation reimagined</div>
+        <div class="hero-badge" style="color: black; text-align: center; font-weight: 500;">AI Story generation reimagined</div>
         <h1 class="hero-title" style="color: black; font-weight: bold; text-align: center;">Create beautiful stories with a few simple inputs</h1>
         <p class="hero-subtitle" style="color: black;">Craft unique tales with stunning visuals and immersive narration, using our intuitive story generation platform</p>
     </div>
@@ -587,12 +586,12 @@ elif st.session_state.page == "create_form":
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">🎭 Theme</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;"> Theme</div>', unsafe_allow_html=True)
         topic = st.text_input("", "A magical adventure in an enchanted forest", key="theme_input",
                             placeholder="e.g. Space exploration, Medieval quest")
     
     with col2:
-        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">📚 Genre</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;"> Genre</div>', unsafe_allow_html=True)
         genre = st.selectbox("", 
                             ["Fantasy", "Sci-Fi", "Mystery", "Adventure", "Romance", "Horror", "Fairy Tale"], 
                             key="genre_select")
@@ -600,7 +599,7 @@ elif st.session_state.page == "create_form":
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">⏱️ Length</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;"> Length</div>', unsafe_allow_html=True)
         length_options = {"Short": 250, "Medium": 500, "Long": 750}
         
         # Custom CSS to make radio buttons more visible
@@ -639,17 +638,17 @@ elif st.session_state.page == "create_form":
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">🏞️ Setting</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;"> Setting</div>', unsafe_allow_html=True)
         setting = st.text_input("", "Enchanted forest with ancient trees", key="setting_input",
                               placeholder="e.g. Enchanted forest, Desert city")
     
     with col2:
-        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">🕰️ Era</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;"> Era</div>', unsafe_allow_html=True)
         era = st.text_input("", "Medieval times", key="era_input",
                           placeholder="e.g. Medieval times, Future, 1920s")
     
     # Keywords field
-    st.markdown('<div style="font-weight: 500; margin-top: 20px; margin-bottom: 8px; color: black;">🔑 Keywords (comma-separated)</div>', unsafe_allow_html=True)
+    st.markdown('<div style="font-weight: 500; margin-top: 20px; margin-bottom: 8px; color: black;"> Keywords (comma-separated)</div>', unsafe_allow_html=True)
     keywords = st.text_area("", "magic, forest, adventure, discovery, ancient secrets", key="keywords_input",
                           height=100)
     
@@ -703,7 +702,7 @@ elif st.session_state.page == "create_form":
     
     # Place button in center column
     with col2:
-        generate_story_btn = st.button("✨ Generate Story", use_container_width=True, key="generate_story_btn")
+        generate_story_btn = st.button(" Generate Story", use_container_width=True, key="generate_story_btn")
   
     
     st.markdown("</div>", unsafe_allow_html=True)
@@ -716,7 +715,7 @@ elif st.session_state.page == "create_form":
             # Combine setting and era into the topic for better context
             full_topic = f"{topic} set in {setting} during {era}"
             
-            with st.spinner("✨ Creating your magical story..."):
+            with st.spinner(" Creating your magical story..."):
                 story_gen = StoryGenerator()
                 title, story = story_gen.generate_story(genre, length, full_topic, character_name, keywords)
                 
@@ -733,19 +732,19 @@ elif st.session_state.page == "create_form":
             
             # Generate Image
             if generate_image:
-                with st.spinner("🎨 Creating illustration..."):
+                with st.spinner(" Creating illustration..."):
                     image_gen = ImageGenerator()
                     image_url = image_gen.generate_image(genre, full_topic, keywords)
                     st.session_state.image_url = image_url
             
             # Generate Speech
             if generate_speech:
-                with st.spinner("🎙️ Creating audio narration..."):
+                with st.spinner(" Creating audio narration..."):
                     tts_gen = TTSGenerator()
                     st.session_state.audio_file = tts_gen.generate_speech(st.session_state.story)
             
             # Generate PDF
-            with st.spinner("📄 Finalizing your story..."):
+            with st.spinner(" Finalizing your story..."):
                 st.session_state.pdf_path = exporter.save_story_pdf(
                     st.session_state.title, 
                     st.session_state.story, 
@@ -832,7 +831,7 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
         st.markdown(f"<div style='margin-top: 15px; padding: 10px; background-color: #f8f8f8; border-radius: 5px; text-align: center;'><strong>Genre:</strong> {current_genre}</div>", unsafe_allow_html=True)
         
         # Create New Story Button
-        st.button("✨ Create Another Story", on_click=lambda: go_to_page("create_form"), key="create_another_btn")
+        st.button(" Create Another Story", on_click=lambda: go_to_page("create_form"), key="create_another_btn")
     
     st.markdown("</div>", unsafe_allow_html=True)
 
