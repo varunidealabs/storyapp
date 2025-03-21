@@ -579,7 +579,6 @@ elif st.session_state.page == "create_form":
     # Add some spacing
     st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
     
-    # Form with white background container
     
     # Form Layout with Two Columns
     col1, col2 = st.columns(2)
@@ -793,7 +792,7 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
             try:
                 with open(st.session_state.pdf_path, "rb") as file:
                     st.download_button(
-                        "📥 Download Story as PDF",
+                        " Download Story as PDF",
                         file,
                         file_name=f"{st.session_state.title}.pdf",
                         mime="application/pdf",
