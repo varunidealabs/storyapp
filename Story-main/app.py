@@ -1,4 +1,35 @@
-import streamlit as st
+# Global CSS to ensure all text is black
+st.markdown("""
+<style>
+    /* Force all text to be black */
+    .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, label, .stSelectbox, .stTextInput, .stTextArea, .stRadio, .stCheckbox {
+        color: black !important;
+    }
+    
+    /* Make sure all input fields have black text */
+    .stTextInput > div > div > input, .stTextArea > div > div > textarea, .stSelectbox > div > div > div {
+        color: black !important;
+    }
+    
+    /* Force background to be white */
+    .main .block-container {
+        background-color: white !important;
+    }
+    
+    /* Override the metric value and label color */
+    .stMetric > div {
+        color: black !important;
+    }
+    .stMetric > div > div > div {
+        color: black !important;
+    }
+    
+    /* Fix caption text */
+    .stImage > div > div > small {
+        color: black !important;
+    }
+</style>
+""", unsafe_allow_html=True)import streamlit as st
 import os
 from src.story_generator import StoryGenerator
 from src.image_generator import ImageGenerator
@@ -308,6 +339,39 @@ if "initialized" not in st.session_state:
     st.session_state.initialized = True
     clear_all_temp_files()
 
+# Global CSS to ensure all text is black
+st.markdown("""
+<style>
+    /* Force all text to be black */
+    .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, label, .stSelectbox, .stTextInput, .stTextArea, .stRadio, .stCheckbox {
+        color: black !important;
+    }
+    
+    /* Make sure all input fields have black text */
+    .stTextInput > div > div > input, .stTextArea > div > div > textarea, .stSelectbox > div > div > div {
+        color: black !important;
+    }
+    
+    /* Force background to be white */
+    .main .block-container {
+        background-color: white !important;
+    }
+    
+    /* Override the metric value and label color */
+    .stMetric > div {
+        color: black !important;
+    }
+    .stMetric > div > div > div {
+        color: black !important;
+    }
+    
+    /* Fix caption text */
+    .stImage > div > div > small {
+        color: black !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # Initialize all session state variables
 if "page" not in st.session_state:
     st.session_state.page = "home"  # Options: home, create_form, story_view
@@ -378,17 +442,17 @@ def create_sample_story():
 header_col1, header_col2 = st.columns([1, 2])
 
 with header_col1:
-    st.markdown("<h1 style='font-size: 24px; margin-bottom: 0;'>✨ StoryBloom</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 24px; margin-bottom: 0; color: black; font-weight: bold;'>✨ StoryBloom</h1>", unsafe_allow_html=True)
 
 with header_col2:
     # Create a horizontal menu with Streamlit
     menu_cols = st.columns(4)
     with menu_cols[0]:
-        st.markdown("<div style='text-align: center;'><strong>Home</strong></div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align: center; color: black; font-weight: bold;'>Home</div>", unsafe_allow_html=True)
     with menu_cols[1]:
-        st.markdown("<div style='text-align: center;'>Create</div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align: center; color: black;'>Create</div>", unsafe_allow_html=True)
     with menu_cols[2]:
-        st.markdown("<div style='text-align: center;'>Library</div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align: center; color: black;'>Library</div>", unsafe_allow_html=True)
 
 # Add a separator line
 st.markdown("<hr style='margin-top: 0; border-color: #e0e0e0;'>", unsafe_allow_html=True)
@@ -398,9 +462,9 @@ if st.session_state.page == "home":
     # Hero Section - Simplified version without custom HTML buttons
     st.markdown("""
     <div class="hero-container">
-        <div class="hero-badge">✨ Story generation reimagined</div>
-        <h1 class="hero-title">Create beautiful stories with a few simple inputs</h1>
-        <p class="hero-subtitle">Craft unique tales with stunning visuals and immersive narration, using our intuitive story generation platform</p>
+        <div class="hero-badge" style="color: black; font-weight: 500;">✨ Story generation reimagined</div>
+        <h1 class="hero-title" style="color: black; font-weight: bold;">Create beautiful stories with a few simple inputs</h1>
+        <p class="hero-subtitle" style="color: black;">Craft unique tales with stunning visuals and immersive narration, using our intuitive story generation platform</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -460,7 +524,22 @@ elif st.session_state.page == "create_form":
     with col1:
         st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">⏱️ Length</div>', unsafe_allow_html=True)
         length_options = {"Short": 250, "Medium": 500, "Long": 750}
-        length_choice = st.radio("", ["Short", "Medium", "Long"], horizontal=True, index=1)
+        
+        # Custom CSS to make radio buttons more visible
+        st.markdown("""
+        <style>
+        .stRadio > div {
+            color: black !important;
+            font-weight: 500;
+        }
+        .stRadio > div > div > label {
+            color: black !important;
+            font-weight: 500;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        length_choice = st.radio("", ["Short", "Medium", "Long"], horizontal=True, index=1, key="length_radio")
         length = length_options[length_choice]
     
     with col2:
@@ -489,13 +568,23 @@ elif st.session_state.page == "create_form":
     st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
     st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">Options</div>', unsafe_allow_html=True)
     
+    # Custom CSS for checkboxes
+    st.markdown("""
+    <style>
+    .stCheckbox > div > div > label {
+        color: black !important;
+        font-weight: 500;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
     col1, col2 = st.columns(2)
     
     with col1:
-        generate_image = st.checkbox("Generate illustration", value=True)
+        generate_image = st.checkbox("Generate illustration", value=True, key="gen_image_check")
     
     with col2:
-        generate_speech = st.checkbox("Generate audio narration", value=True)
+        generate_speech = st.checkbox("Generate audio narration", value=True, key="gen_audio_check")
     
     # Generate Button (centered)
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
