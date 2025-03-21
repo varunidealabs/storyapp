@@ -1,3 +1,22 @@
+
+import os
+from src.story_generator import StoryGenerator
+from src.image_generator import ImageGenerator
+from src.tts_generator import TTSGenerator
+from src.export_story import StoryExporter
+from src.cleanup import clear_all_temp_files
+
+# Ensure directories exist
+os.makedirs("output_stories", exist_ok=True)
+os.makedirs("output_audio", exist_ok=True)
+
+# Page config with wider layout
+st.set_page_config(
+    page_title="StoryBloom AI",
+    page_icon="✨",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 # Additional global CSS to fix contrast issues
 st.markdown("""
 <style>
@@ -47,25 +66,6 @@ st.markdown("""
         st.markdown("<div style='text-align: center; font-size: 32px; color: black;'>🖼️</div>", unsafe_allow_html=True)
     with icon_col3:
         st.markdown("<div style='text-align: center; font-size: 32px; color: black;'>🎙️</div>", unsafe_allow_html=True)import streamlit as st
-import os
-from src.story_generator import StoryGenerator
-from src.image_generator import ImageGenerator
-from src.tts_generator import TTSGenerator
-from src.export_story import StoryExporter
-from src.cleanup import clear_all_temp_files
-
-# Ensure directories exist
-os.makedirs("output_stories", exist_ok=True)
-os.makedirs("output_audio", exist_ok=True)
-
-# Page config with wider layout
-st.set_page_config(
-    page_title="StoryBloom AI",
-    page_icon="✨",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
-
 # Custom CSS for styling
 st.markdown("""
 <style>
