@@ -520,25 +520,45 @@ if st.session_state.page == "home":
     </style>
     """, unsafe_allow_html=True)
     
+    # Button Container - Using Streamlit columns for side-by-side buttons
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        # Add custom CSS to ensure text is pure white on black buttons
+        # Additional CSS to ensure the buttons display properly
         st.markdown("""
         <style>
-        /* Force first button text to be white */
-        div.stButton:nth-child(1) > button {
+        /* Fix for button text colors */
+        div.stButton button[kind="primary"] {
             color: white !important;
+            background-color: black !important;
             font-weight: bold !important;
+            border: 2px solid black !important;
+        }
+        
+        div.stButton button[kind="secondary"] {
+            color: black !important;
+            background-color: white !important;
+            font-weight: bold !important;
+            border: 2px solid black !important;
+        }
+        
+        /* Make buttons display side by side */
+        div.row-widget.stButton {
+            display: inline-block;
+            width: 48%;
+            margin-right: 2%;
         }
         </style>
         """, unsafe_allow_html=True)
         
-        # Use custom styling with type="primary" to ensure proper coloring
-        if st.button("Create Your Story →", key="create_story_btn", use_container_width=True, type="primary"):
-            go_to_page("create_form")
-        
-        if st.button("View Sample Story", key="view_sample_btn", use_container_width=True, type="secondary"):
-            create_sample_story()
+        # Side-by-side buttons
+        button_cols = st.columns(2)
+        with button_cols[0]:
+            if st.button("Create Your Story →", key="create_story_btn", use_container_width=True, type="primary"):
+                go_to_page("create_form")
+                
+        with button_cols[1]:
+            if st.button("View Sample Story", key="view_sample_btn", use_container_width=True, type="secondary"):
+                create_sample_story()
 
 elif st.session_state.page == "create_form":
     # Story Creation Form with improved styling
