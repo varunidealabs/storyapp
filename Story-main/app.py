@@ -791,7 +791,7 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
             st.markdown("</div>", unsafe_allow_html=True)
         
         # PDF Download Button
-        if st.session_state.pdf_path:
+        if st.session_state.pdf_path and os.path.exists(st.session_state.pdf_path):
             try:
                 with open(st.session_state.pdf_path, "rb") as file:
                     st.download_button(
@@ -803,6 +803,8 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
                     )
             except Exception as e:
                 st.error(f"Error preparing PDF download: {str(e)}")
+        elif st.session_state.pdf_path:
+            st.warning("PDF file not found. It may have been deleted.")
     
     with col2:
         # Story Image
@@ -811,7 +813,7 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
             st.image(
                 st.session_state.image_url,
                 caption=f"Illustration for '{st.session_state.title}'",
-                use_column_width=True
+                use_container_width=True
             )
             st.markdown('</div>', unsafe_allow_html=True)
         
@@ -825,12 +827,14 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
         with col_b:
             st.metric("Reading Time", f"{len(st.session_state.story.split()) // 200 + 1} min")
         
-        # Story type
-        st.markdown(f"<div style='margin-top: 15px; padding: 10px; background-color: #f8f8f8; border-radius: 5px; text-align: center;'><strong>Genre:</strong> {genre}</div>", unsafe_allow_html=True)
+        # Story type - use the genre from the previous create_form page
+        current_genre = st.session_state.get('current_genre', 'Unknown')
+        st.markdown(f"<div style='margin-top: 15px; padding: 10px; background-color: #f8f8f8; border-radius: 5px; text-align: center;'><strong>Genre:</strong> {current_genre}</div>", unsafe_allow_html=True)
         
         # Create New Story Button
         st.button("✨ Create Another Story", on_click=lambda: go_to_page("create_form"), key="create_another_btn")
     
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 
