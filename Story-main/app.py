@@ -827,7 +827,20 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
         # Story type - use the genre from the previous create_form page
         current_genre = st.session_state.get('current_genre', 'Unknown')
         st.markdown(f"<div style='margin-top: 15px; padding: 10px; background-color: #f8f8f8; border-radius: 5px; text-align: center;'><strong>Genre:</strong> {current_genre}</div>", unsafe_allow_html=True)
-        
+        # For the Create Another Story button
+        st.markdown("""
+        <style>
+        /* Override any existing button styles for this specific button */
+        div[data-testid="stVerticalBlock"] > div:has(button:contains("Create Another Story")) button {
+            background-color: black !important;
+            color: white !important;
+            border: 2px solid black !important;
+            border-radius: 30px !important;
+            font-weight: bold !important;
+            padding: 10px 24px !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
         # Create New Story Button
         st.button(" Create Another Story", on_click=lambda: go_to_page("create_form"), key="create_another_btn")
     
