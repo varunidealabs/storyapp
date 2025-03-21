@@ -680,7 +680,30 @@ elif st.session_state.page == "create_form":
     # Generate Button with simpler CSS targeting
     # Form-based approach for more control over the button
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
+    # Generate Story Button with clean styling
+    st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     
+    # Clear styling overrides for this specific button
+    st.markdown("""
+    <style>
+    /* Override any existing button styles for this specific button */
+    div[data-testid="stVerticalBlock"] > div:last-child button {
+        background-color: white !important;
+        color: black !important;
+        border: 2px solid black !important;
+        border-radius: 30px !important;
+        font-weight: bold !important;
+        padding: 10px 24px !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Create centered column layout
+    col1, col2, col3 = st.columns([1, 1, 1])
+    
+    # Place button in center column
+    with col2:
+        generate_story_btn = st.button("✨ Generate Story", use_container_width=True, key="generate_story_btn")
   
     
     st.markdown("</div>", unsafe_allow_html=True)
