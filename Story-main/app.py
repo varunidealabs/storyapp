@@ -401,6 +401,28 @@ st.markdown("""
     .mt-20 {margin-top: 20px;}
     .mt-40 {margin-top: 40px;}
     .text-center {text-align: center;}
+    
+    /* Improved Button Contrast for Black Buttons */
+    .stButton > button[style*="background-color: black"], 
+    .stButton > button[style*="background-color: #000000"], 
+    .stButton > button[style*="background-color: rgb(0, 0, 0)"] {
+        color: white !important;
+        font-weight: bold !important;
+    }
+    
+    /* Create Another Story button */
+    div.element-container:has(button:contains("Create Another Story")) button {
+        background-color: black !important;
+        color: white !important;
+        font-weight: bold !important;
+    }
+    
+    /* Download Story button */
+    div.element-container:has(button:contains("Download Story")) button {
+        background-color: black !important;
+        color: white !important;
+        font-weight: bold !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -436,7 +458,7 @@ def create_sample_story():
     with st.spinner("Generating a sample story..."):
         # Default values for sample story
         genre = "Fantasy"
-        length = 500
+        length = 250  # Changed from 500 to 250 for Short length
         topic = "A magical adventure in an enchanted forest"
         character_name = "Emma"
         keywords = "magic, forest, adventure, discovery, ancient secrets"
@@ -496,12 +518,12 @@ if st.session_state.page == "home":
     </div>
     """, unsafe_allow_html=True)
     
-    # Button Container - Using Streamlit columns for layout instead of HTML
+    # Improved Button Container with better contrast
     st.markdown("""
     <style>
-    /* Special style for the main buttons */
+    /* Ensure black buttons have white text */
     .main-button-black {
-        background-color: black;
+        background-color: black !important;
         color: white !important;
         padding: 15px 30px;
         border-radius: 30px;
@@ -524,40 +546,27 @@ if st.session_state.page == "home":
         cursor: pointer;
         border: 2px solid black;
     }
+    
+    /* Ensure Streamlit buttons have proper contrast */
+    div.stButton > button {
+        background-color: black !important;
+        color: white !important;
+        font-weight: bold !important;
+    }
+    
+    /* Only the View Sample button should be white with black text */
+    div.row-widget.stButton:nth-child(2) button {
+        background-color: white !important;
+        color: black !important;
+        border: 2px solid black !important;
+    }
     </style>
     """, unsafe_allow_html=True)
     
     # Button Container - Using Streamlit columns for side-by-side buttons
-    # Button Container - Using Streamlit columns for side-by-side buttons
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        # Additional CSS to ensure the buttons display properly
-        st.markdown("""
-        <style>
-        /* Make both buttons white with black text */
-        div.stButton button {
-            color: black !important;
-            background-color: white !important;
-            font-weight: bold !important;
-            border: 2px solid black !important;
-            border-radius: 30px !important;
-            padding: 12px 24px !important;
-        }
-        
-        div.stButton button:hover {
-            background-color: #f7f7f7 !important;
-        }
-        
-        /* Make buttons display side by side */
-        div.row-widget.stButton {
-            display: inline-block;
-            width: 48%;
-            margin-right: 2%;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-        
-        # Side-by-side buttons with consistent styling
+        # Side-by-side buttons with improved contrast
         button_cols = st.columns(2)
         with button_cols[0]:
             if st.button("Create Your Story →", key="create_story_btn", use_container_width=True):
@@ -627,7 +636,8 @@ elif st.session_state.page == "create_form":
         </style>
         """, unsafe_allow_html=True)
         
-        length_choice = st.radio("", ["Short", "Medium", "Long"], horizontal=True, index=1, key="length_radio")
+        # Changed default selection from "Medium" (index=1) to "Short" (index=0)
+        length_choice = st.radio("", ["Short", "Medium", "Long"], horizontal=True, index=0, key="length_radio")
         length = length_options[length_choice]
     
     with col2:
@@ -674,21 +684,16 @@ elif st.session_state.page == "create_form":
     with col2:
         generate_speech = st.checkbox("Generate audio narration", value=True, key="gen_audio_check")
     
-    # Generate Button (centered) with custom styling
-    # Generate Button (centered) with consistent white background styling
-    # Generate Button with simpler CSS targeting
-    # Form-based approach for more control over the button
-    st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
-    # Generate Story Button with clean styling
+    # Generate Button with improved styling for better contrast
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     
-    # Clear styling overrides for this specific button
+    # Additional CSS for the Generate Story button
     st.markdown("""
     <style>
-    /* Override any existing button styles for this specific button */
-    div[data-testid="stVerticalBlock"] > div:last-child button {
-        background-color: white !important;
-        color: black !important;
+    /* Make the Generate Story button black with white text */
+    div[data-testid="stVerticalBlock"] > div:has(button:contains("Generate Story")) button {
+        background-color: black !important;
+        color: white !important;
         border: 2px solid black !important;
         border-radius: 30px !important;
         font-weight: bold !important;
@@ -702,7 +707,7 @@ elif st.session_state.page == "create_form":
     
     # Place button in center column
     with col2:
-        generate_story_btn = st.button(" Generate Story", use_container_width=True, key="generate_story_btn")
+        generate_story_btn = st.button("Generate Story", use_container_width=True, key="generate_story_btn")
   
     
     st.markdown("</div>", unsafe_allow_html=True)
@@ -725,6 +730,8 @@ elif st.session_state.page == "create_form":
                     st.session_state.story = story
                     st.session_state.story_generated = True
                     st.session_state.play_audio = False
+                    # Store current genre
+                    st.session_state.current_genre = genre
                     
                     # Export as text
                     exporter = StoryExporter()
@@ -755,7 +762,7 @@ elif st.session_state.page == "create_form":
             go_to_page("story_view")
 
 elif st.session_state.page == "story_view" and st.session_state.story_generated:
-    # Story View Page with improved layout
+    # Story View Page with improved contrast
     st.markdown("<div style='background-color: white; padding: 20px; border-radius: 10px;'>", unsafe_allow_html=True)
     
     col1, col2 = st.columns([2, 1])
@@ -771,13 +778,31 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
         </div>
         """, unsafe_allow_html=True)
         
-        # Audio Player
+        # Audio Player with improved button contrast
         if st.session_state.audio_file and os.path.exists(st.session_state.audio_file):
             st.markdown("<div style='background-color: #f8f8f8; padding: 15px; border-radius: 10px; margin-top: 20px;'>", unsafe_allow_html=True)
             
             audio_col1, audio_col2 = st.columns([1, 4])
             
             with audio_col1:
+                # Apply custom styling to ensure white text on black background
+                st.markdown("""
+                <style>
+                /* Target the audio button specifically */
+                div.element-container:has(button:contains("Read Aloud")), 
+                div.element-container:has(button:contains("Pause")) {
+                    background-color: transparent;
+                }
+                
+                div.element-container:has(button:contains("Read Aloud")) button, 
+                div.element-container:has(button:contains("Pause")) button {
+                    background-color: black !important;
+                    color: white !important;
+                    font-weight: bold !important;
+                }
+                </style>
+                """, unsafe_allow_html=True)
+                
                 if st.button("🎙️ " + ("Pause" if st.session_state.play_audio else "Read Aloud"), 
                            key="audio_toggle_btn", 
                            type="primary"):
@@ -789,8 +814,20 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
             
             st.markdown("</div>", unsafe_allow_html=True)
         
-        # PDF Download Button
+        # PDF Download Button with improved contrast
         if st.session_state.pdf_path and os.path.exists(st.session_state.pdf_path):
+            # Custom CSS for download button
+            st.markdown("""
+            <style>
+            /* Ensure download button has white text on black background */
+            div.element-container:has(button:contains("Download Story")) button {
+                background-color: black !important;
+                color: white !important;
+                font-weight: bold !important;
+            }
+            </style>
+            """, unsafe_allow_html=True)
+            
             try:
                 with open(st.session_state.pdf_path, "rb") as file:
                     st.download_button(
@@ -826,14 +863,23 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
         with col_b:
             st.metric("Reading Time", f"{len(st.session_state.story.split()) // 200 + 1} min")
         
-        # Story type - use the genre from the previous create_form page
+        # Story type - display the current genre from session state
         current_genre = st.session_state.get('current_genre', 'Unknown')
         st.markdown(f"<div style='margin-top: 15px; padding: 10px; background-color: #f8f8f8; border-radius: 5px; text-align: center;'><strong>Genre:</strong> {current_genre}</div>", unsafe_allow_html=True)
         
+        # Custom CSS for Create Another Story button
+        st.markdown("""
+        <style>
+        /* Make Create Another Story button black with white text */
+        div.element-container:has(button:contains("Create Another Story")) button {
+            background-color: black !important;
+            color: white !important;
+            font-weight: bold !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
         # Create New Story Button
-        st.button(" Create Another Story", on_click=lambda: go_to_page("create_form"), key="create_another_btn")
+        st.button("Create Another Story", on_click=lambda: go_to_page("create_form"), key="create_another_btn")
     
     st.markdown("</div>", unsafe_allow_html=True)
-
-
-
