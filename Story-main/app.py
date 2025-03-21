@@ -813,9 +813,4 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
     
     st.markdown("</div>", unsafe_allow_html=True)
 
-# Footer
-st.markdown("""
-<div style="text-align: center; padding: 40px 0; color: black; font-size: 14px; background-color: white; margin-top: 40px;">
-    © 2025 StoryBloom AI • Create magical stories with AI
-</div>
-""", unsafe_allow_html=True)
+
