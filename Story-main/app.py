@@ -771,12 +771,11 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
         
         # Audio Player
         if st.session_state.audio_file and os.path.exists(st.session_state.audio_file):
-            st.markdown("<div style='background-color: #f8f8f8; padding: 15px; border-radius: 10px; margin-top: 20px;'>", unsafe_allow_html=True)
             
             audio_col1, audio_col2 = st.columns([1, 4])
             
             with audio_col1:
-                if st.button("🎙️ " + ("Pause" if st.session_state.play_audio else "Read Aloud"), 
+                if st.button(" " + ("Pause" if st.session_state.play_audio else "Read Aloud"), 
                            key="audio_toggle_btn", 
                            type="primary"):
                     toggle_audio()
