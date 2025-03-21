@@ -473,17 +473,7 @@ def create_sample_story():
 header_col1, header_col2 = st.columns([1, 2])
 
 with header_col1:
-    st.markdown("<h1 style='font-size: 24px; margin-bottom: 0; color: black; font-weight: bold;'>✨ StoryBloom</h1>", unsafe_allow_html=True)
-
-with header_col2:
-    # Create a horizontal menu with Streamlit
-    menu_cols = st.columns(4)
-    with menu_cols[0]:
-        st.markdown("<div style='text-align: center; color: black; font-weight: bold;'>Home</div>", unsafe_allow_html=True)
-    with menu_cols[1]:
-        st.markdown("<div style='text-align: center; color: black;'>Create</div>", unsafe_allow_html=True)
-    with menu_cols[2]:
-        st.markdown("<div style='text-align: center; color: black;'>Library</div>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 24px; margin-bottom: 0; color: black; font-weight: bold;'>✨ AI Story Generator </h1>", unsafe_allow_html=True)
 
 # Add a separator line
 st.markdown("<hr style='margin-top: 0; border-color: #e0e0e0;'>", unsafe_allow_html=True)
