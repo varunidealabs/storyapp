@@ -483,7 +483,7 @@ if st.session_state.page == "home":
     # Hero Section - Simplified version without custom HTML buttons
     st.markdown("""
     <div class="hero-container">
-        <div class="hero-badge" style="color: black; font-weight: 500;">✨ Story generation reimagined</div>
+        <div class="hero-badge" style="color: black; text-align: center; font-weight: 500;">✨AI Story generation reimagined</div>
         <h1 class="hero-title" style="color: black; font-weight: bold; text-align: center;">Create beautiful stories with a few simple inputs</h1>
         <p class="hero-subtitle" style="color: black;">Craft unique tales with stunning visuals and immersive narration, using our intuitive story generation platform</p>
     </div>
