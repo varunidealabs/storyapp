@@ -436,7 +436,7 @@ def create_sample_story():
     with st.spinner("Generating a sample story..."):
         # Default values for sample story
         genre = "Fantasy"
-        length = 500
+        length = 250
         topic = "A magical adventure in an enchanted forest"
         character_name = "Emma"
         keywords = "magic, forest, adventure, discovery, ancient secrets"
@@ -627,7 +627,7 @@ elif st.session_state.page == "create_form":
         </style>
         """, unsafe_allow_html=True)
         
-        length_choice = st.radio("", ["Short", "Medium", "Long"], horizontal=True, index=1, key="length_radio")
+        length_choice = st.radio("", ["Short", "Medium", "Long"], horizontal=True, index=0, key="length_radio")
         length = length_options[length_choice]
     
     with col2:
