@@ -473,7 +473,7 @@ def create_sample_story():
 header_col1, header_col2 = st.columns([1, 2])
 
 with header_col1:
-    st.markdown("<h1 style='font-size: 24px; margin-bottom: 0; color: black; font-weight: bold;'>✨ AI Story Generator </h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 24px; margin-bottom: 0; color: black; font-weight: bold;text-align: center;'>✨ AI Story Generator </h1>", unsafe_allow_html=True)
 
 # Add a separator line
 st.markdown("<hr style='margin-top: 0; border-color: #e0e0e0;'>", unsafe_allow_html=True)
