@@ -99,10 +99,18 @@ st.markdown("""
         color: black !important;
     }
     
-    /* Make sure all input fields have proper contrast */
-    .stTextInput > div > div > input, .stTextArea > div > div > textarea, .stSelectbox > div > div > div {
+    /* Make sure all input fields have proper contrast and a black cursor */
+    .stTextInput > div > div > input, 
+    .stTextArea > div > div > textarea, 
+    .stSelectbox > div > div > div {
         color: black !important;
         background-color: white !important;
+        caret-color: black !important; /* This makes the cursor/caret black */
+    }
+    
+    /* Additional selector to ensure cursor color is black in all input elements */
+    input, textarea, [contenteditable="true"] {
+        caret-color: black !important;
     }
     
     /* Make sure any black background elements have white text */
