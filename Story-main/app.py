@@ -677,32 +677,27 @@ elif st.session_state.page == "create_form":
     
     # Generate Button (centered) with custom styling
     # Generate Button (centered) with consistent white background styling
+    # Generate Button with simpler CSS targeting
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        # Apply special styling to match the other white buttons
+        # Apply specific styling for this button
         st.markdown("""
         <style>
-        /* Style for the Generate Story button */
-        button[data-testid="baseButton-primary"] {
-            background-color: white !important;
+        /* Target the generate button specifically by its key */
+        [data-testid="element-container"] button {
             color: black !important;
+            background-color: white !important;
             border: 2px solid black !important;
             border-radius: 30px !important;
             font-weight: bold !important;
-            padding: 10px 20px !important;
-        }
-        
-        /* Hover effect */
-        button[data-testid="baseButton-primary"]:hover {
-            background-color: #f7f7f7 !important;
         }
         </style>
         """, unsafe_allow_html=True)
         
-        # Use type="secondary" to get white background instead of primary
-        generate_story_btn = st.button("✨ Generate Story", use_container_width=True, key="generate_story_btn", type="secondary")
+        # Standard button without type specification
+        generate_story_btn = st.button("✨ Generate Story", use_container_width=True, key="generate_story_btn")
     
     st.markdown("</div>", unsafe_allow_html=True)
     
