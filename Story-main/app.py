@@ -580,7 +580,6 @@ elif st.session_state.page == "create_form":
     st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
     
     # Form with white background container
-    st.markdown("<div style='background-color: white; padding: 30px; border-radius: 10px; border: 1px solid #e0e0e0;'>", unsafe_allow_html=True)
     
     # Form Layout with Two Columns
     col1, col2 = st.columns(2)
@@ -631,7 +630,7 @@ elif st.session_state.page == "create_form":
         length = length_options[length_choice]
     
     with col2:
-        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">👤 Main Character</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;"> Main Character</div>', unsafe_allow_html=True)
         character_name = st.text_input("", "Alex", key="character_input",
                                      placeholder="e.g. A brave knight, A curious child")
     
