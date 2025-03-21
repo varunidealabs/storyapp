@@ -806,7 +806,7 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
             audio_col1, audio_col2 = st.columns([1, 4])
             
             with audio_col1:
-                if st.button("🎙️ Read Aloud", 
+                if st.button(" Read Aloud", 
                            key="audio_toggle_btn", 
                            type="secondary"):  # Change to secondary type
                     toggle_audio()
