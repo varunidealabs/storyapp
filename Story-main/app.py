@@ -16,7 +16,38 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-
+st.markdown("""
+<style>
+    /* Fix for story view page buttons */
+    .stButton > button[type="primary"],
+    .stButton > button[data-testid="baseButton-primary"],
+    .stButton > button[kind="primary"] {
+        background-color: white !important;
+        color: black !important;
+        border: 2px solid black !important;
+        border-radius: 30px !important;
+        font-weight: bold !important;
+    }
+    
+    /* PDF Download button styling */
+    .stDownloadButton > button {
+        background-color: white !important;
+        color: black !important;
+        border: 2px solid black !important;
+        border-radius: 30px !important;
+        font-weight: bold !important;
+    }
+    
+    /* Override specific style for all buttons in the story view page */
+    [data-testid="stVerticalBlock"] .stButton > button {
+        background-color: white !important;
+        color: black !important;
+        border: 2px solid black !important;
+        border-radius: 30px !important;
+        font-weight: bold !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 # Additional global CSS to fix contrast issues
 st.markdown("""
 <style>
@@ -775,9 +806,9 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
             audio_col1, audio_col2 = st.columns([1, 4])
             
             with audio_col1:
-                if st.button(" " + ("Pause" if st.session_state.play_audio else "Read Aloud"), 
+                if st.button("🎙️ Read Aloud", 
                            key="audio_toggle_btn", 
-                           type="primary"):
+                           type="secondary"):  # Change to secondary type
                     toggle_audio()
             
             with audio_col2:
@@ -789,6 +820,7 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
         # PDF Download Button
         if st.session_state.pdf_path and os.path.exists(st.session_state.pdf_path):
             try:
+                
                 with open(st.session_state.pdf_path, "rb") as file:
                     st.download_button(
                         " Download Story as PDF",
@@ -829,7 +861,10 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
         # For the Create Another Story button
         
         # Create New Story Button
-        st.button(" Create Another Story", on_click=lambda: go_to_page("create_form"), key="create_another_btn")
+        st.button(" Create Another Story", 
+        on_click=lambda: go_to_page("create_form"), 
+        key="create_another_btn",
+        type="secondary")
     
     st.markdown("</div>", unsafe_allow_html=True)
 
