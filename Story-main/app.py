@@ -1,35 +1,4 @@
-# Global CSS to ensure all text is black
-st.markdown("""
-<style>
-    /* Force all text to be black */
-    .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, label, .stSelectbox, .stTextInput, .stTextArea, .stRadio, .stCheckbox {
-        color: black !important;
-    }
-    
-    /* Make sure all input fields have black text */
-    .stTextInput > div > div > input, .stTextArea > div > div > textarea, .stSelectbox > div > div > div {
-        color: black !important;
-    }
-    
-    /* Force background to be white */
-    .main .block-container {
-        background-color: white !important;
-    }
-    
-    /* Override the metric value and label color */
-    .stMetric > div {
-        color: black !important;
-    }
-    .stMetric > div > div > div {
-        color: black !important;
-    }
-    
-    /* Fix caption text */
-    .stImage > div > div > small {
-        color: black !important;
-    }
-</style>
-""", unsafe_allow_html=True)import streamlit as st
+import streamlit as st
 import os
 from src.story_generator import StoryGenerator
 from src.image_generator import ImageGenerator
@@ -61,6 +30,39 @@ st.markdown("""
     
     .stApp {
         background-color: white !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# More CSS styles
+st.markdown("""
+<style>
+    /* Force all text to be black */
+    .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, label, .stSelectbox, .stTextInput, .stTextArea, .stRadio, .stCheckbox {
+        color: black !important;
+    }
+    
+    /* Make sure all input fields have black text */
+    .stTextInput > div > div > input, .stTextArea > div > div > textarea, .stSelectbox > div > div > div {
+        color: black !important;
+    }
+    
+    /* Force background to be white */
+    .main .block-container {
+        background-color: white !important;
+    }
+    
+    /* Override the metric value and label color */
+    .stMetric > div {
+        color: black !important;
+    }
+    .stMetric > div > div > div {
+        color: black !important;
+    }
+    
+    /* Fix caption text */
+    .stImage > div > div > small {
+        color: black !important;
     }
     
     /* Header Styles */
@@ -116,32 +118,39 @@ st.markdown("""
         line-height: 1.6;
     }
     
-    /* Action Buttons */
-    .button-container {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-bottom: 60px;
-    }
-    .primary-button {
-        background-color: #1a1a1a;
+    /* Button Styles */
+    div.stButton > button {
+        background-color: #000000;
         color: white;
         padding: 12px 24px;
         border-radius: 30px;
         font-weight: 600;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        cursor: pointer;
+        border: 2px solid black;
+        width: 100%;
+        font-size: 16px;
+        margin-bottom: 10px;
     }
-    .secondary-button {
+    div.stButton > button:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+    }
+    
+    /* First button (Create Story) */
+    div.stButton > button:nth-of-type(1) {
+        background-color: #000000;
+        color: white;
+    }
+    
+    /* Second button (View Sample) */
+    div.stButton > button:nth-of-type(2) {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+    }
+    
+    div.stButton > button:nth-of-type(2):hover {
         background-color: #f0f0f0;
-        color: #1a1a1a;
-        padding: 12px 24px;
-        border-radius: 30px;
-        font-weight: 600;
-        text-decoration: none;
-        cursor: pointer;
     }
     
     /* Form Styles */
@@ -222,85 +231,34 @@ st.markdown("""
         justify-content: center;
         gap: 80px;
         margin-top: 60px;
+        background-color: white;
     }
     .feature-icon {
         font-size: 32px;
-        color: #1a1a1a;
-    }
-    
-    /* Hiding Streamlit Elements */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    .stDeployButton {display:none;}
-    
-    /* Button Styles */
-    div.stButton > button {
-        background-color: #000000;
-        color: white;
-        padding: 12px 24px;
-        border-radius: 30px;
-        font-weight: 600;
-        border: 2px solid black;
-        width: 100%;
-        font-size: 16px;
-        margin-bottom: 10px;
-    }
-    div.stButton > button:hover {
-        background-color: white;
         color: black;
-        border: 2px solid black;
-    }
-    
-    /* First button (Create Story) */
-    div.stButton > button:nth-of-type(1) {
-        background-color: #000000;
-        color: white;
-    }
-    
-    /* Second button (View Sample) */
-    div.stButton > button:nth-of-type(2) {
-        background-color: white;
-        color: black;
-        border: 2px solid black;
-    }
-    
-    div.stButton > button:nth-of-type(2):hover {
-        background-color: #f0f0f0;
+        text-align: center;
     }
     
     /* Length Selector Buttons */
     .length-selector {
         display: flex;
         gap: 10px;
+        background-color: white;
     }
     .length-button {
         flex: 1;
         text-align: center;
         padding: 12px;
-        border: 1px solid #e0e0e0;
+        border: 1px solid black;
         border-radius: 8px;
         cursor: pointer;
+        color: black;
+        background-color: white;
     }
     .length-button.active {
-        background-color: #1a1a1a;
+        background-color: black;
         color: white;
-        border-color: #1a1a1a;
-    }
-    
-    /* Custom Tabs */
-    .custom-tabs {
-        display: flex;
-        border-bottom: 1px solid #e0e0e0;
-        margin-bottom: 20px;
-    }
-    .tab-item {
-        padding: 10px 20px;
-        cursor: pointer;
-        border-bottom: 2px solid transparent;
-    }
-    .tab-item.active {
-        border-bottom: 2px solid #1a1a1a;
-        font-weight: bold;
+        border-color: black;
     }
     
     /* Audio Player Styling */
@@ -309,21 +267,44 @@ st.markdown("""
         align-items: center;
         gap: 10px;
         margin-top: 20px;
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        padding: 15px;
+        border-radius: 10px;
     }
     .audio-button {
-        background-color: #f0f0f0;
-        color: #1a1a1a;
+        background-color: black;
+        color: white;
         padding: 8px 16px;
         border-radius: 30px;
         font-weight: 600;
         cursor: pointer;
     }
     
-    /* Story Image */
+    /* Image Container */
     .image-container {
         margin: 20px 0;
         border-radius: 12px;
         overflow: hidden;
+        border: 1px solid #e0e0e0;
+    }
+    
+    /* Custom Tabs */
+    .custom-tabs {
+        display: flex;
+        border-bottom: 1px solid black;
+        margin-bottom: 20px;
+        background-color: white;
+    }
+    .tab-item {
+        padding: 10px 20px;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        color: black;
+    }
+    .tab-item.active {
+        border-bottom: 2px solid black;
+        font-weight: bold;
     }
     
     /* Utility Classes */
@@ -338,39 +319,6 @@ st.markdown("""
 if "initialized" not in st.session_state:
     st.session_state.initialized = True
     clear_all_temp_files()
-
-# Global CSS to ensure all text is black
-st.markdown("""
-<style>
-    /* Force all text to be black */
-    .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, label, .stSelectbox, .stTextInput, .stTextArea, .stRadio, .stCheckbox {
-        color: black !important;
-    }
-    
-    /* Make sure all input fields have black text */
-    .stTextInput > div > div > input, .stTextArea > div > div > textarea, .stSelectbox > div > div > div {
-        color: black !important;
-    }
-    
-    /* Force background to be white */
-    .main .block-container {
-        background-color: white !important;
-    }
-    
-    /* Override the metric value and label color */
-    .stMetric > div {
-        color: black !important;
-    }
-    .stMetric > div > div > div {
-        color: black !important;
-    }
-    
-    /* Fix caption text */
-    .stImage > div > div > small {
-        color: black !important;
-    }
-</style>
-""", unsafe_allow_html=True)
 
 # Initialize all session state variables
 if "page" not in st.session_state:
