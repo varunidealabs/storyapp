@@ -24,7 +24,12 @@ st.markdown("""
     /* Global Styles */
     body {
         font-family: 'Inter', sans-serif;
-        background-color: white;
+        background-color: white !important;
+        color: black !important;
+    }
+    
+    .stApp {
+        background-color: white !important;
     }
     
     /* Header Styles */
@@ -35,15 +40,16 @@ st.markdown("""
         padding: 20px 0;
         border-bottom: 1px solid #f0f0f0;
         margin-bottom: 20px;
+        background-color: white;
     }
     .header-logo {
         font-size: 24px;
         font-weight: bold;
-        color: #1a1a1a;
+        color: black;
     }
     .header-nav a {
         margin-left: 20px;
-        color: #666;
+        color: black;
         text-decoration: none;
     }
     
@@ -53,10 +59,11 @@ st.markdown("""
         padding: 40px 0;
         max-width: 800px;
         margin: 0 auto;
+        background-color: white;
     }
     .hero-badge {
         background-color: #f8f8f8;
-        color: #666;
+        color: black;
         padding: 8px 16px;
         border-radius: 20px;
         display: inline-flex;
@@ -67,13 +74,13 @@ st.markdown("""
     .hero-title {
         font-size: 48px;
         font-weight: bold;
-        color: #1a1a1a;
+        color: black;
         margin-bottom: 20px;
         line-height: 1.2;
     }
     .hero-subtitle {
         font-size: 18px;
-        color: #666;
+        color: black;
         margin-bottom: 40px;
         line-height: 1.6;
     }
@@ -113,16 +120,19 @@ st.markdown("""
         padding: 30px;
         background-color: white;
         border-radius: 12px;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
     .form-title {
         font-size: 32px;
         font-weight: bold;
         text-align: center;
         margin-bottom: 10px;
+        color: black;
     }
     .form-subtitle {
         font-size: 16px;
-        color: #666;
+        color: black;
         text-align: center;
         margin-bottom: 30px;
     }
@@ -140,13 +150,16 @@ st.markdown("""
         display: flex;
         align-items: center;
         gap: 8px;
+        color: black;
     }
     .form-input, .form-select {
         width: 100%;
         padding: 12px;
-        border: 1px solid #e0e0e0;
+        border: 1px solid black;
         border-radius: 8px;
         font-size: 16px;
+        background-color: white;
+        color: black;
     }
     
     /* Story Container */
@@ -156,18 +169,20 @@ st.markdown("""
         padding: 30px;
         background-color: white;
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border: 1px solid #e0e0e0;
     }
     .story-title {
         font-size: 32px;
         font-weight: bold;
         margin-bottom: 20px;
         text-align: center;
+        color: black;
     }
     .story-content {
         font-size: 18px;
         line-height: 1.6;
-        color: #333;
+        color: black;
     }
     
     /* Feature Icons */
@@ -189,17 +204,37 @@ st.markdown("""
     
     /* Button Styles */
     div.stButton > button {
-        background-color: #1a1a1a;
+        background-color: #000000;
         color: white;
         padding: 12px 24px;
         border-radius: 30px;
         font-weight: 600;
-        border: none;
+        border: 2px solid black;
         width: 100%;
+        font-size: 16px;
+        margin-bottom: 10px;
     }
     div.stButton > button:hover {
-        background-color: #333;
-        border: none;
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+    }
+    
+    /* First button (Create Story) */
+    div.stButton > button:nth-of-type(1) {
+        background-color: #000000;
+        color: white;
+    }
+    
+    /* Second button (View Sample) */
+    div.stButton > button:nth-of-type(2) {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+    }
+    
+    div.stButton > button:nth-of-type(2):hover {
+        background-color: #f0f0f0;
     }
     
     /* Length Selector Buttons */
@@ -339,59 +374,51 @@ def create_sample_story():
             go_to_page("story_view")
 
 # ===== Header =====
-st.markdown("""
-<div class="header-container">
-    <div class="header-logo">✨ StoryBloom</div>
-    <div class="header-nav">
-        <a href="#">Home</a>
-        <a href="#">Create</a>
-        <a href="#">Library</a>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+# Use Streamlit columns for header to avoid HTML rendering issues
+header_col1, header_col2 = st.columns([1, 2])
+
+with header_col1:
+    st.markdown("<h1 style='font-size: 24px; margin-bottom: 0;'>✨ StoryBloom</h1>", unsafe_allow_html=True)
+
+with header_col2:
+    # Create a horizontal menu with Streamlit
+    menu_cols = st.columns(4)
+    with menu_cols[0]:
+        st.markdown("<div style='text-align: center;'><strong>Home</strong></div>", unsafe_allow_html=True)
+    with menu_cols[1]:
+        st.markdown("<div style='text-align: center;'>Create</div>", unsafe_allow_html=True)
+    with menu_cols[2]:
+        st.markdown("<div style='text-align: center;'>Library</div>", unsafe_allow_html=True)
+
+# Add a separator line
+st.markdown("<hr style='margin-top: 0; border-color: #e0e0e0;'>", unsafe_allow_html=True)
 
 # ===== Page Content =====
 if st.session_state.page == "home":
-    # Hero Section
+    # Hero Section - Simplified version without custom HTML buttons
     st.markdown("""
     <div class="hero-container">
         <div class="hero-badge">✨ Story generation reimagined</div>
         <h1 class="hero-title">Create beautiful stories with a few simple inputs</h1>
         <p class="hero-subtitle">Craft unique tales with stunning visuals and immersive narration, using our intuitive story generation platform</p>
-        
-        <div class="button-container">
-            <div class="primary-button" id="create-story-btn">Create Your Story →</div>
-            <div class="secondary-button" id="sample-story-btn">View Sample Story</div>
-        </div>
-        
-        <div class="feature-icons">
-            <div class="feature-icon">📚</div>
-            <div class="feature-icon">🖼️</div>
-            <div class="feature-icon">🎙️</div>
-        </div>
     </div>
     """, unsafe_allow_html=True)
     
-    # JavaScript for button interactions
-    st.markdown("""
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('create-story-btn').addEventListener('click', function() {
-                window.parent.postMessage({type: 'streamlit:setComponentValue', value: 'create_form'}, '*');
-            });
-            
-            document.getElementById('sample-story-btn').addEventListener('click', function() {
-                window.parent.postMessage({type: 'streamlit:setComponentValue', value: 'sample_story'}, '*');
-            });
-        });
-    </script>
-    """, unsafe_allow_html=True)
-    
-    # Since JavaScript doesn't work directly in Streamlit, we'll use buttons
+    # Button Container - Using Streamlit columns for layout instead of HTML
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        create_story_btn = st.button("Create Your Story →")
-        view_sample_btn = st.button("View Sample Story")
+        create_story_btn = st.button("Create Your Story →", key="create_story_btn", use_container_width=True)
+        view_sample_btn = st.button("View Sample Story", key="view_sample_btn", use_container_width=True)
+    
+    # Feature Icons - Using Streamlit columns
+    st.markdown("<br>", unsafe_allow_html=True)
+    icon_col1, icon_col2, icon_col3 = st.columns(3)
+    with icon_col1:
+        st.markdown("<div style='text-align: center; font-size: 32px;'>📚</div>", unsafe_allow_html=True)
+    with icon_col2:
+        st.markdown("<div style='text-align: center; font-size: 32px;'>🖼️</div>", unsafe_allow_html=True)
+    with icon_col3:
+        st.markdown("<div style='text-align: center; font-size: 32px;'>🎙️</div>", unsafe_allow_html=True)
     
     if create_story_btn:
         go_to_page("create_form")
@@ -400,24 +427,30 @@ if st.session_state.page == "home":
         create_sample_story()
 
 elif st.session_state.page == "create_form":
-    # Story Creation Form
+    # Story Creation Form with improved styling
     st.markdown("""
-    <div class="form-container">
-        <h2 class="form-title">Craft Your Story</h2>
-        <p class="form-subtitle">Fill in the details below to generate your custom story</p>
+    <div style="background-color: white; padding: 30px; border-radius: 10px; border: 1px solid #e0e0e0;">
+        <h2 style="font-size: 32px; font-weight: bold; text-align: center; color: black;">Craft Your Story</h2>
+        <p style="font-size: 16px; color: black; text-align: center; margin-bottom: 30px;">Fill in the details below to generate your custom story</p>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Add some spacing
+    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
+    
+    # Form with white background container
+    st.markdown("<div style='background-color: white; padding: 30px; border-radius: 10px; border: 1px solid #e0e0e0;'>", unsafe_allow_html=True)
     
     # Form Layout with Two Columns
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown('<div class="form-label">🎭 Theme</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">🎭 Theme</div>', unsafe_allow_html=True)
         topic = st.text_input("", "A magical adventure in an enchanted forest", key="theme_input",
                             placeholder="e.g. Space exploration, Medieval quest")
     
     with col2:
-        st.markdown('<div class="form-label">📚 Genre</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">📚 Genre</div>', unsafe_allow_html=True)
         genre = st.selectbox("", 
                             ["Fantasy", "Sci-Fi", "Mystery", "Adventure", "Romance", "Horror", "Fairy Tale"], 
                             key="genre_select")
@@ -425,34 +458,37 @@ elif st.session_state.page == "create_form":
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown('<div class="form-label">⏱️ Length</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">⏱️ Length</div>', unsafe_allow_html=True)
         length_options = {"Short": 250, "Medium": 500, "Long": 750}
         length_choice = st.radio("", ["Short", "Medium", "Long"], horizontal=True, index=1)
         length = length_options[length_choice]
     
     with col2:
-        st.markdown('<div class="form-label">👤 Main Character</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">👤 Main Character</div>', unsafe_allow_html=True)
         character_name = st.text_input("", "Alex", key="character_input",
                                      placeholder="e.g. A brave knight, A curious child")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown('<div class="form-label">🏞️ Setting</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">🏞️ Setting</div>', unsafe_allow_html=True)
         setting = st.text_input("", "Enchanted forest with ancient trees", key="setting_input",
                               placeholder="e.g. Enchanted forest, Desert city")
     
     with col2:
-        st.markdown('<div class="form-label">🕰️ Era</div>', unsafe_allow_html=True)
+        st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">🕰️ Era</div>', unsafe_allow_html=True)
         era = st.text_input("", "Medieval times", key="era_input",
                           placeholder="e.g. Medieval times, Future, 1920s")
     
     # Keywords field
-    st.markdown('<div class="form-label mt-20">🔑 Keywords (comma-separated)</div>', unsafe_allow_html=True)
+    st.markdown('<div style="font-weight: 500; margin-top: 20px; margin-bottom: 8px; color: black;">🔑 Keywords (comma-separated)</div>', unsafe_allow_html=True)
     keywords = st.text_area("", "magic, forest, adventure, discovery, ancient secrets", key="keywords_input",
                           height=100)
     
     # Options
+    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
+    st.markdown('<div style="font-weight: 500; margin-bottom: 8px; color: black;">Options</div>', unsafe_allow_html=True)
+    
     col1, col2 = st.columns(2)
     
     with col1:
@@ -462,10 +498,13 @@ elif st.session_state.page == "create_form":
         generate_speech = st.checkbox("Generate audio narration", value=True)
     
     # Generate Button (centered)
+    st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        generate_story_btn = st.button("✨ Generate Story", use_container_width=True)
+        generate_story_btn = st.button("✨ Generate Story", use_container_width=True, key="generate_story_btn")
+    
+    st.markdown("</div>", unsafe_allow_html=True)
     
     # Story Generation Logic
     if generate_story_btn:
@@ -515,7 +554,9 @@ elif st.session_state.page == "create_form":
             go_to_page("story_view")
 
 elif st.session_state.page == "story_view" and st.session_state.story_generated:
-    # Story View Page
+    # Story View Page with improved layout
+    st.markdown("<div style='background-color: white; padding: 20px; border-radius: 10px;'>", unsafe_allow_html=True)
+    
     col1, col2 = st.columns([2, 1])
     
     with col1:
@@ -531,15 +572,21 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
         
         # Audio Player
         if st.session_state.audio_file and os.path.exists(st.session_state.audio_file):
+            st.markdown("<div style='background-color: #f8f8f8; padding: 15px; border-radius: 10px; margin-top: 20px;'>", unsafe_allow_html=True)
+            
             audio_col1, audio_col2 = st.columns([1, 4])
             
             with audio_col1:
-                if st.button("🎙️ " + ("Pause" if st.session_state.play_audio else "Read Aloud")):
+                if st.button("🎙️ " + ("Pause" if st.session_state.play_audio else "Read Aloud"), 
+                           key="audio_toggle_btn", 
+                           type="primary"):
                     toggle_audio()
             
             with audio_col2:
                 if st.session_state.play_audio:
                     st.audio(st.session_state.audio_file, format="audio/mp3")
+            
+            st.markdown("</div>", unsafe_allow_html=True)
         
         # PDF Download Button
         if st.session_state.pdf_path:
@@ -567,7 +614,7 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
             st.markdown('</div>', unsafe_allow_html=True)
         
         # Story Metadata
-        st.markdown("### Story Details")
+        st.markdown("<h3 style='color: black;'>Story Details</h3>", unsafe_allow_html=True)
         
         # Display metadata as metrics
         col_a, col_b = st.columns(2)
@@ -576,12 +623,17 @@ elif st.session_state.page == "story_view" and st.session_state.story_generated:
         with col_b:
             st.metric("Reading Time", f"{len(st.session_state.story.split()) // 200 + 1} min")
         
+        # Story type
+        st.markdown(f"<div style='margin-top: 15px; padding: 10px; background-color: #f8f8f8; border-radius: 5px; text-align: center;'><strong>Genre:</strong> {genre}</div>", unsafe_allow_html=True)
+        
         # Create New Story Button
-        st.button("✨ Create Another Story", on_click=lambda: go_to_page("create_form"))
+        st.button("✨ Create Another Story", on_click=lambda: go_to_page("create_form"), key="create_another_btn")
+    
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
-<div style="text-align: center; padding: 40px 0; color: #666; font-size: 14px;">
+<div style="text-align: center; padding: 40px 0; color: black; font-size: 14px; background-color: white; margin-top: 40px;">
     © 2025 StoryBloom AI • Create magical stories with AI
 </div>
 """, unsafe_allow_html=True)
